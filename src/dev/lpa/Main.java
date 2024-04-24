@@ -1,15 +1,25 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+package dev.lpa;
+
+import java.nio.file.Path;
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
-        }
+        Path path = Path.of("files/testing.txt");
+        printPathInfo(path);
+
+    }
+
+    private static void printPathInfo(Path path){
+        System.out.println("Path: " + path);
+        System.out.println("fileName = " + path.getFileName());
+        System.out.println("parent = " + path.getParent());
+        Path absolutePath = path.toAbsolutePath();
+        System.out.println("Absolute Path: " + absolutePath);
+        System.out.println("Absolute Path Root: " + absolutePath.getRoot());
+        System.out.println("Root: " + path.getRoot());
+        System.out.println("isAbsolute: " + path.isAbsolute());
+        System.out.println("--------------------");
+
     }
 }
