@@ -1,6 +1,10 @@
 package dev.lpa;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
+import java.time.Instant;
 
 public class Main {
     public static void main(String[] args) {
@@ -19,7 +23,36 @@ public class Main {
         System.out.println("Absolute Path Root: " + absolutePath.getRoot());
         System.out.println("Root: " + path.getRoot());
         System.out.println("isAbsolute: " + path.isAbsolute());
-        System.out.println("--------------------");
 
+        System.out.println(absolutePath.getRoot());
+//        int i = 1;
+//        var it = path.toAbsolutePath().iterator();
+//        while(it.hasNext()){
+//            System.out.println(".".repeat(i++) + it.next());
+//        }
+
+        // Displays path in hierarchy of folders
+        int pathParts = absolutePath.getNameCount();
+        for (int i = 0; i<pathParts; i++){
+            System.out.println(".".repeat(i + 1) + " " + absolutePath.getName(i));
+        }
+
+        System.out.println("--------------------");
+    }
+
+
+    private static void logStatement(Path path){
+        try{
+            Path parent = path.getParent();
+            if (!Files.exists(parent)){
+                Files.createDirectory(parent);
+            }
+            Files.writeString(path, Instant.now() + ": hello file world\n",
+                    StandardOpenOption.CREATE,
+                    StandardOpenOption.APPEND)
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
     }
 }
