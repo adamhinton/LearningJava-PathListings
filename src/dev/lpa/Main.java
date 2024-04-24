@@ -9,8 +9,9 @@ import java.time.Instant;
 public class Main {
     public static void main(String[] args) {
 
-        Path path = Path.of("files/testing.txt");
+        Path path = Path.of("this/is/several/files/testing.txt");
         printPathInfo(path);
+        logStatement(path);
 
     }
 
@@ -45,11 +46,11 @@ public class Main {
         try{
             Path parent = path.getParent();
             if (!Files.exists(parent)){
-                Files.createDirectory(parent);
+                Files.createDirectories(parent);
             }
             Files.writeString(path, Instant.now() + ": hello file world\n",
                     StandardOpenOption.CREATE,
-                    StandardOpenOption.APPEND)
+                    StandardOpenOption.APPEND);
         }
         catch (IOException e){
             e.printStackTrace();
