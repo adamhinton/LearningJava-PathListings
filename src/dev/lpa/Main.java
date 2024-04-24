@@ -10,12 +10,13 @@ public class Main {
     public static void main(String[] args) {
 
         Path path = Path.of("this/is/several/files/testing.txt");
-        printPathInfo(path);
+//        printPathInfo(path);
         logStatement(path);
+        extraInfo(path);
 
     }
 
-    private static void printPathInfo(Path path){
+    private static void printPathInfo(Path path) {
         System.out.println("Path: " + path);
         System.out.println("fileName = " + path.getFileName());
         System.out.println("parent = " + path.getParent());
@@ -34,7 +35,7 @@ public class Main {
 
         // Displays path in hierarchy of folders
         int pathParts = absolutePath.getNameCount();
-        for (int i = 0; i<pathParts; i++){
+        for (int i = 0; i < pathParts; i++) {
             System.out.println(".".repeat(i + 1) + " " + absolutePath.getName(i));
         }
 
@@ -42,18 +43,33 @@ public class Main {
     }
 
 
-    private static void logStatement(Path path){
-        try{
+    private static void logStatement(Path path) {
+        try {
             Path parent = path.getParent();
-            if (!Files.exists(parent)){
+            if (!Files.exists(parent)) {
                 Files.createDirectories(parent);
             }
             Files.writeString(path, Instant.now() + ": hello file world\n",
+
+
                     StandardOpenOption.CREATE,
                     StandardOpenOption.APPEND);
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+
+
+    private static void extraInfo(Path path){
+
+        try{
+            var atts = Files.readAttributes(path, "*");
+            atts.entrySet().forEach(System.out::println);
+        }
+        catch(IOException e){
+            System.out.println("Problem getting attributes");
+        }
+
     }
 }
